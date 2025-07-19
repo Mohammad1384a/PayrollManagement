@@ -19,6 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Task.API\Task.API.csproj" />
+    <ProjectReference Include="..\Task.Core\Task.Core.csproj" />
+    <ProjectReference Include="..\Task.Infrastructure\Task.Infrastructure.csproj" />
+    <ProjectReference Include="..\Task.OvertimeCalculator\Task.OvertimeCalculator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

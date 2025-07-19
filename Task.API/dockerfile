@@ -5,16 +5,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["PayrollManagement.Api/PayrollManagement.Api.csproj", "PayrollManagement.Api/"]
-RUN dotnet restore "PayrollManagement.Api/PayrollManagement.Api.csproj"
+COPY ["Task.API/Task.API.csproj", "Task.API/"]
+RUN dotnet restore "Task.API/Task.API.csproj"
 COPY . .
-WORKDIR "/src/PayrollManagement.Api"
-RUN dotnet build "PayrollManagement.Api.csproj" -c Release -o /app/build
+WORKDIR "/src/Task.API"
+RUN dotnet build "Task.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "PayrollManagement.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Task.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PayrollManagement.Api.dll"]
+ENTRYPOINT ["dotnet", "Task.API.dll"]
