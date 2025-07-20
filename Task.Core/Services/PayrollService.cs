@@ -30,7 +30,7 @@ public class PayrollService(IEmployeePayrollRepository repository, IMapper mappe
     }
 
     public async TaskType UpdatePayrollAsync(UpdatePayrollDto dto) {
-        var payroll = await _repository.GetByIdAsync(dto.PayrollId);
+        var payroll = await _repository.GetByIdAsync(dto.Id);
         if (payroll == null || !CheckOverTimeCalc(dto.OverTimeCalc)) throw new Exception("invalid parameter");
 
         _mapper.Map(dto, payroll);

@@ -41,13 +41,13 @@ public class EmployeePayrollRepository(TaskDbContext context, IConfiguration con
     public async Task<IEnumerable<EmployeePayRoll>?> GetByEmpIdAsync(int empId) {
         using var connection = new SqlConnection(_connectionString);
         return await connection.QueryAsync<EmployeePayRoll>(
-            "select ep.Id,ep.BasicSalary,ep.Allowance,ep.Transportation,ep.Date from Employees e join EmployeePayrolls ep on ep.EmployeeId = e.Id where e.Id = @Id", new { Id = empId });
+            "select ep.Id,ep.BasicSalary,ep.Allowance,ep.Transportation,ep.Date,ep.OverTimeCalc,ep.TotalSalary from Employees e join EmployeePayrolls ep on ep.EmployeeId = e.Id where e.Id = @Id", new { Id = empId });
     }
 
     public async Task<IEnumerable<EmployeePayRoll>?> GetByDateRangeForEmpAsync(int empId, DateTime from, DateTime to) {
         using var connection = new SqlConnection(_connectionString);
         return await connection.QueryAsync<EmployeePayRoll>(
-            "select ep.Id,ep.BasicSalary,ep.Allowance,ep.Transportation,ep.Date from Employees e join EmployeePayrolls ep on ep.EmployeeId = e.Id WHERE Date BETWEEN @From AND @To and e.Id = @Id",
+            "select ep.Id,ep.BasicSalary,ep.Allowance,ep.Transportation,ep.Date,TotalSalary from Employees e join EmployeePayrolls ep on ep.EmployeeId = e.Id WHERE Date BETWEEN @From AND @To and e.Id = @Id",
             new { From = from, To = to, Id = empId });
     }
 }

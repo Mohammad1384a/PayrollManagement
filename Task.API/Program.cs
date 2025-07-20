@@ -25,13 +25,23 @@ builder.Services.AddScoped<IEmployeePayrollRepository, EmployeePayrollRepository
 builder.Services.AddDbContext<TaskDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(policy =>
+        policy
+            .WithOrigins("*")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+app.UseCors();
+
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

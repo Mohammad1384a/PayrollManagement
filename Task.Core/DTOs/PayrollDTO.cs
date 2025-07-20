@@ -19,7 +19,7 @@ public record CreatePayrollDto(
 );
 
 public record UpdatePayrollDto(
-    int PayrollId,
+    int Id,
     decimal BasicSalary,
     decimal Allowance,
     decimal Transportation,
